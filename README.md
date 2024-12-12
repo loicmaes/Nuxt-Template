@@ -48,7 +48,7 @@ NUXT_MAILER_HOST="smtp.ionos.fr"
 NUXT_MAILER_PORT="465"
 NUXT_MAILER_USER="***@***.**"
 NUXT_MAILER_PASS="*********"
-NUXT_MAILER_FROM_ADDRESS="***&***.**"
+NUXT_MAILER_FROM_ADDRESS="***@***.**"
 NUXT_MAILER_FROM_NAME="My Nuxt Application - Mail System"
 
 NUXT_PUBLIC_API_URL="http://localhost:3000"
