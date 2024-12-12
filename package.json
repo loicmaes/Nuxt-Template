@@ -1,0 +1,30 @@
+{
+  "name": "nuxt-template",
+  "version": "1.0.0",
+  "author": "Loïc MAES",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": ">= 22"
+  },
+  "homepage": "https://github.com/loicmaes/Nuxt-Template#readme",
+  "bugs": {
+    "url": "https://github.com/loicmaes/Nuxt-Template/issues"
+  },
+  "repository": "https://github.com/loicmaes/Nuxt-Template",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --host",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint . --fix"
+  },
+  "dependencies": {
+    "nuxt": "^3.14.1592",
+    "vue": "latest",
+    "vue-router": "latest"
+  }
+}
