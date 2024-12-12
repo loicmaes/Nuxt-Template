@@ -2,6 +2,7 @@
 import { Code, Rocket } from "@iconoir/vue";
 
 const { t } = useI18n();
+const user = useUser();
 </script>
 
 <template>
@@ -25,7 +26,12 @@ const { t } = useI18n();
         </svg>
       </NuxtLink>
 
-      <h1 class="mt-2 text-4xl font-bold">
+      <span
+        class="-mb-4 mt-2 font-medium text-muted-foreground italic"
+      >
+        {{ t("temp.welcome.sayHi", { username: user?.username ?? '' }) }}
+      </span>
+      <h1 class="text-4xl font-bold">
         {{ t("temp.welcome.title") }}
       </h1>
       <p class="w-[min(55ch,100%)] text-muted-foreground leading-loose text-center">
