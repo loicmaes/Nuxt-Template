@@ -33,7 +33,7 @@ const tabs: ITab[] = [
       :default-value="tabs[0].name"
       class="w-[min(100%,400px)]"
     >
-      <TabsList class="w-full grid grid-cols-2">
+      <TabsList class="w-full grid grid-cols-1 md:grid-cols-2">
         <TabsTrigger
           v-for="tab in tabs"
           :key="`tt-${tab.name}`"
