@@ -830,6 +830,13 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/retry/-/retry-0.4.1.tgz#9a96ce501bc62df46c4031fbd970e3cc6b10f07b"
   integrity sha512-c7hNEllBlenFTHBky65mhq8WD2kbN9Q6gk0bTk8lSBvc554jpXSkST1iePudpt7+A/AQvuHs9EMqjHDXMY1lrA==
 
+"@iconoir/vue@^7.10.1":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@iconoir/vue/-/vue-7.10.1.tgz#ece5b00dd5284f708fead773e0a449edf3a7b1df"
+  integrity sha512-+IcuRLjEbYqWhEDEnHXHYo86kmhX5SJ4M5FeqRi1k8dJn2+Ba2hfCYg6FKbi0S/LwmgaSMXXGGfboJAhYJa5gQ==
+  dependencies:
+    vue-demi "^0.14.6"
+
 "@internationalized/date@^3.5.4":
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/@internationalized/date/-/date-3.6.0.tgz#b30d43030bfed1855f20c9503606926d75bfdf64"
@@ -7179,7 +7186,7 @@ vue-bundle-renderer@^2.1.1:
   dependencies:
     ufo "^1.5.4"
 
-vue-demi@>=0.13.0, vue-demi@>=0.14.8:
+vue-demi@>=0.13.0, vue-demi@>=0.14.8, vue-demi@^0.14.6:
   version "0.14.10"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.14.10.tgz#afc78de3d6f9e11bf78c55e8510ee12814522f04"
   integrity sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==
