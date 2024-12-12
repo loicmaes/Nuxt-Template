@@ -10,10 +10,10 @@ const props = defineProps<PageProps>();
 </script>
 
 <template>
-  <div
+  <main
     :data-page="props.name"
     :class="cn('', props.class)"
   >
     <slot />
-  </div>
+  </main>
 </template>

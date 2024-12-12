@@ -13,7 +13,11 @@ const props = defineProps<LayoutProps>();
 <template>
   <div
     :data-layout="props.name"
-    :class="cn(props.container ? 'container' : '', '', props.class)"
+    :class="cn(
+      props.container ? 'container' : '',
+      'min-h-dvh',
+      props.class,
+    )"
   >
     <slot />
   </div>
