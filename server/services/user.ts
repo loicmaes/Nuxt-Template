@@ -7,6 +7,8 @@ import { HttpCode } from "~/types/http";
 import type { ICreateUser } from "~/types/user";
 import { error } from "~/server/services/http";
 import { NotFoundError, UniqueConstraintError } from "~/types/error";
+import * as emailService from "~/server/services/email";
+import useAccountCreated from "~/server/emails/templates/auth/accountCreated";
 
 // Authentication
 export async function createUserAccount(event: HttpRequest, payload: ICreateUser) {
@@ -20,6 +22,12 @@ export async function createUserAccount(event: HttpRequest, payload: ICreateUser
       token,
       userUid,
     });
+
+    const template = useAccountCreated(user.username);
+    emailService.sendMail({
+      to: user.email,
+      template,
+    }).then().catch(console.error);
 
     event.node.res.statusCode = HttpCode.Created;
     return user;
