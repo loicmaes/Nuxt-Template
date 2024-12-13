@@ -1,8 +1,19 @@
 <script setup lang="ts">
-import { Code, Rocket } from "@iconoir/vue";
+import { Code, LogOut, Rocket, SystemRestart } from "@iconoir/vue";
 
 const { t } = useI18n();
 const user = useUser();
+
+const logoutLoading = ref<boolean>(false);
+async function handleLogout() {
+  logoutLoading.value = true;
+
+  const canMove = await logout(t);
+
+  logoutLoading.value = false;
+  if (canMove)
+    await navigateTo(useLocalePath()("/"));
+}
 </script>
 
 <template>
@@ -26,9 +37,7 @@ const user = useUser();
         </svg>
       </NuxtLink>
 
-      <span
-        class="-mb-4 mt-2 font-medium text-muted-foreground italic"
-      >
+      <span class="-mb-4 mt-2 font-medium text-muted-foreground italic">
         {{ t("temp.welcome.sayHi", { username: user?.username ?? '' }) }}
       </span>
       <h1 class="text-4xl font-bold">
@@ -39,12 +48,30 @@ const user = useUser();
       </p>
 
       <div class="flex items-center flex-row-reverse gap-4 self-center">
-        <Button as-child>
-          <NuxtLinkLocale to="/auth">
-            <Rocket />
-            <span>{{ t("temp.welcome.authProcess") }}</span>
-          </NuxtLinkLocale>
-        </Button>
+        <template v-if="user">
+          <Button
+            variant="destructive"
+            :disabled="logoutLoading"
+            @click="handleLogout"
+          >
+            <template v-if="logoutLoading">
+              <SystemRestart class="animate-spin" />
+              <span>{{ t("temp.welcome.logOut.loading") }}</span>
+            </template>
+            <template v-else>
+              <LogOut />
+              <span>{{ t("temp.welcome.logOut.idle") }}</span>
+            </template>
+          </Button>
+        </template>
+        <template v-else>
+          <Button as-child>
+            <NuxtLinkLocale to="/auth">
+              <Rocket />
+              <span>{{ t("temp.welcome.authProcess") }}</span>
+            </NuxtLinkLocale>
+          </Button>
+        </template>
         <Button
           variant="secondary"
           as-child

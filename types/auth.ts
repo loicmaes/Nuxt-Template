@@ -8,4 +8,5 @@ export interface IAuthSession {
   userUid: string;
   createdAt: Date;
   expiresAt: Date;
+  revokedAt?: Date;
 }

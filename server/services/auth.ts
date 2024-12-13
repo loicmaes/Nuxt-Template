@@ -22,13 +22,13 @@ export function setCookies(event: HttpRequest, payload: {
   setUserUidCookie(event, payload.userUid);
 }
 
-export function getTokenCookie(event: HttpRequest): string {
+export function getTokenCookie(event: HttpRequest): (string | undefined) {
   return getCookie(event, tokenCookieKey);
 }
-export function getUserUidCookie(event: HttpRequest): string {
+export function getUserUidCookie(event: HttpRequest): (string | undefined) {
   return getCookie(event, userUidCookieKey);
 }
-export function getCookies(event: HttpRequest): { token: string; userUid: string } {
+export function getCookies(event: HttpRequest): { token?: string; userUid?: string } {
   return {
     token: getTokenCookie(event),
     userUid: getUserUidCookie(event),

@@ -4,6 +4,28 @@ import type { InternationalizationTool } from "~/types/i18n";
 
 export const useUser = () => useState<IUser | undefined>("user", () => undefined);
 
+export async function getWhoAmI(t: InternationalizationTool) {
+  try {
+    const { data } = await useFetch<IUser>("/api/user/whoami", {
+      headers: useRequestHeaders(["cookie"]),
+    });
+    if (!data.value)
+      return;
+    useUser().value = data.value;
+  }
+  catch (e) {
+    if (!(e instanceof FetchError))
+      return toasterServerError(t);
+
+    switch (e.statusCode) {
+      case 404:
+        return toasterError(useToastBody(t, "globals.toasts.sessionExpired"));
+      default:
+        return toasterServerError(t);
+    }
+  }
+}
+
 export async function registerUser(t: InternationalizationTool, payload: ICreateUser) {
   try {
     const user = await $fetch<IUser>("/api/user/create", {
@@ -61,14 +83,14 @@ export async function loginUser(t: InternationalizationTool, payload: {
     }
   }
 }
-export async function getWhoAmI(t: InternationalizationTool) {
+export async function logout(t: InternationalizationTool) {
   try {
-    const { data } = await useFetch<IUser>("/api/user/whoami", {
+    await $fetch("/api/user/session/revoke", {
+      method: "POST",
       headers: useRequestHeaders(["cookie"]),
     });
-    if (!data.value)
-      return;
-    useUser().value = data.value;
+    useUser().value = undefined;
+    return true;
   }
   catch (e) {
     if (!(e instanceof FetchError))

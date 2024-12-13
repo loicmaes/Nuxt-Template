@@ -57,7 +57,7 @@ export async function loginUser(event: HttpRequest, payload: {
       userUid,
     });
 
-    return user;
+    return await userRepository.get(user.uid);
   }
   catch (e) {
     if (e instanceof NotFoundError)
@@ -71,23 +71,19 @@ export async function loginUser(event: HttpRequest, payload: {
     });
   }
 }
-export async function whoAmI(event: HttpRequest) {
-  const { token, userUid } = authService.getCookies(event);
+
+export async function revokeSession(event: HttpRequest) {
+  const { token, userUid } = authService.getCookies(event) as { token: string; userUid: string };
 
   try {
-    if (!await authRepository.isValid(token, userUid))
-      return error(event, {
-        code: HttpCode.Unauthorized,
-        message: "Session expired or not provided!",
-      });
-
-    return await userRepository.get(userUid);
+    await authRepository.revoke(token, userUid);
+    return null;
   }
   catch (e) {
     if (e instanceof NotFoundError)
       return error(event, {
         code: HttpCode.NotFound,
-        message: `"${userUid}" does not belong to any user!`,
+        message: "Session not found!",
       });
 
     return error(event, {
@@ -95,5 +91,4 @@ export async function whoAmI(event: HttpRequest) {
     });
   }
 }
-
 // Some other user related stuff
