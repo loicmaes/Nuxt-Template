@@ -58,3 +58,23 @@ export async function verify(uid: string, userUid: string): Promise<IAccountVeri
     throw new NotFoundError("accountVerification");
   return verification as IAccountVerification;
 }
+
+export async function prune(): Promise<number> {
+  const { count } = await prisma.accountVerification.deleteMany({
+    where: {
+      OR: [
+        {
+          NOT: {
+            usedAt: null,
+          },
+        },
+        {
+          expiresAt: {
+            lte: new Date(),
+          },
+        },
+      ],
+    },
+  });
+  return count;
+}

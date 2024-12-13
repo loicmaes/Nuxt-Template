@@ -60,3 +60,22 @@ export async function revoke(token: string, userUid: string): Promise<IAuthSessi
     throw new NotFoundError("authSession");
   return session as IAuthSession;
 }
+export async function prune(): Promise<number> {
+  const { count } = await prisma.authSession.deleteMany({
+    where: {
+      OR: [
+        {
+          NOT: {
+            revokedAt: null,
+          },
+        },
+        {
+          expiresAt: {
+            lte: new Date(),
+          },
+        },
+      ],
+    },
+  });
+  return count;
+}
