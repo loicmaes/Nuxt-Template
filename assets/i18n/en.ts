@@ -76,5 +76,24 @@ export default {
         },
       },
     },
+    verify: {
+      title: "One Time Verification",
+      status: {
+        pending: {
+          title: "Loading...",
+          description: "Your account's verification is in progress. Please wait...",
+        },
+        error: {
+          title: "Error",
+          description: "An error occurred while verifying your account! Please retry.",
+        },
+      },
+      toasts: {
+        success: {
+          title: "Congratulations 🎉",
+          description: "Your account has been successfully verified! You can now login to access to all features.",
+        },
+      },
+    },
   },
 };
