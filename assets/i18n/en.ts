@@ -55,6 +55,7 @@ export default {
       form: {
         fields: {
           username: "Username",
+          email: "Email address",
           password: "Password",
           showPassword: "Show password",
           conditions: "By clicking, you agree to our Privacy Policy.",
