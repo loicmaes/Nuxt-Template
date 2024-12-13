@@ -26,6 +26,8 @@ export default defineNuxtConfig({
     mailerPass: "",
     mailerFromAddress: "",
     mailerFromName: "",
+    mailerDefaultTo: "",
+    mailerDefaultSubject: "",
 
     public: {
       apiUrl: "",
