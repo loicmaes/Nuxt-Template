@@ -21,7 +21,7 @@ export async function get(token: string, userUid: string): Promise<IAuthSession>
         userUid,
       },
       expiresAt: {
-        lt: new Date(),
+        gt: new Date(),
       },
     },
   });

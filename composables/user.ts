@@ -61,3 +61,24 @@ export async function loginUser(t: InternationalizationTool, payload: {
     }
   }
 }
+export async function getWhoAmI(t: InternationalizationTool) {
+  try {
+    const { data } = await useFetch<IUser>("/api/user/whoami", {
+      headers: useRequestHeaders(["cookie"]),
+    });
+    if (!data.value)
+      return;
+    useUser().value = data.value;
+  }
+  catch (e) {
+    if (!(e instanceof FetchError))
+      return toasterServerError(t);
+
+    switch (e.statusCode) {
+      case 404:
+        return toasterError(useToastBody(t, "globals.toasts.sessionExpired"));
+      default:
+        return toasterServerError(t);
+    }
+  }
+}

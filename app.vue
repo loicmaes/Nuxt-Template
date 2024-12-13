@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { IconoirProvider } from "@iconoir/vue";
 
+const { t } = useI18n();
+
+await getWhoAmI(t);
+
 const iconProps = {
   "width": "1.1rem",
   "height": "1.1rem",

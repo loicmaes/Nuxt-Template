@@ -15,6 +15,10 @@ export default {
         title: "Oops... 💢",
         description: "An internal error occurred... Maybe try again?",
       },
+      sessionExpired: {
+        title: "Oops... 💢",
+        description: "Your session had reach his expiration date! Login to access again.",
+      },
     },
   },
   auth: {
