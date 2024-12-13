@@ -8,10 +8,12 @@ import type { IUser } from "~/types/user";
 
 interface ProtectedRouteOptions {
   authenticated: boolean;
+  verified: boolean;
 }
 
 export async function protectedRoute(event: HttpRequest, callback: (userUid?: IUser) => Promise<unknown>, options: ProtectedRouteOptions = {
   authenticated: true,
+  verified: true,
 }): Promise<unknown> {
   let user;
 
@@ -20,7 +22,13 @@ export async function protectedRoute(event: HttpRequest, callback: (userUid?: IU
     const { user: execUser, error: execError } = await isAuthenticated(event);
     if (execError)
       return error(event, execError);
-    user = execUser;
+    user = execUser as IUser;
+
+    if (options.verified && !isVerified(user))
+      return error(event, {
+        code: HttpCode.Forbidden,
+        message: "User is not verified!",
+      });
   }
 
   return callback(user);
@@ -51,4 +59,8 @@ async function isAuthenticated(event: HttpRequest): Promise<{
   return {
     user: await userRepository.get(userUid),
   };
+}
+
+function isVerified(user: IUser): boolean {
+  return !!user.verifiedAt;
 }

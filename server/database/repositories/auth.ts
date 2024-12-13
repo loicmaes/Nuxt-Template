@@ -34,8 +34,8 @@ export async function isValid(token: string, userUid: string): Promise<boolean> 
   try {
     return !!await get(token, userUid);
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   catch (e) {
-    console.error(e);
     return false;
   }
 }
@@ -59,4 +59,23 @@ export async function revoke(token: string, userUid: string): Promise<IAuthSessi
   if (!session)
     throw new NotFoundError("authSession");
   return session as IAuthSession;
+}
+export async function prune(): Promise<number> {
+  const { count } = await prisma.authSession.deleteMany({
+    where: {
+      OR: [
+        {
+          NOT: {
+            revokedAt: null,
+          },
+        },
+        {
+          expiresAt: {
+            lte: new Date(),
+          },
+        },
+      ],
+    },
+  });
+  return count;
 }

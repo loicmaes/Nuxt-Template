@@ -10,13 +10,16 @@ datasource db {
 // MODELS
 
 model User {
-  uid       String   @id @default(uuid())
-  username  String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  uid        String    @id @default(uuid())
+  username   String    @unique
+  email      String    @unique
+  password   String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  verifiedAt DateTime?
 
-  authSessions AuthSession[]
+  authSessions         AuthSession[]
+  accountVerifications AccountVerification[]
 
   @@map("users")
 }
@@ -32,4 +35,17 @@ model AuthSession {
 
   @@id([token, userUid])
   @@map("auth_sessions")
+}
+
+model AccountVerification {
+  uid       String    @default(uuid())
+  userUid   String
+  createdAt DateTime  @default(now())
+  expiresAt DateTime
+  usedAt    DateTime?
+
+  user User @relation(fields: [userUid], references: [uid], onDelete: Cascade)
+
+  @@id([uid, userUid])
+  @@map("account_verifications")
 }

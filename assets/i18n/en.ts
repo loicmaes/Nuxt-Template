@@ -44,6 +44,10 @@ export default {
           title: "Oops... 💢",
           description: "You provided wrong credentials... Try again!",
         },
+        notVerified: {
+          title: "Oops... 💢",
+          description: "Your account is not verified, check your inbox to verify it and then, try again.",
+        },
         userLoggedIn: {
           title: "Hey {username} 👋",
           description: "Glad to see you back here!",
@@ -55,6 +59,7 @@ export default {
       form: {
         fields: {
           username: "Username",
+          email: "Email address",
           password: "Password",
           showPassword: "Show password",
           conditions: "By clicking, you agree to our Privacy Policy.",
@@ -72,6 +77,25 @@ export default {
         userRegistered: {
           title: "Congratulations 🎉",
           description: "You're now a member of our big family! Glad to see you here {username}.",
+        },
+      },
+    },
+    verify: {
+      title: "One Time Verification",
+      status: {
+        pending: {
+          title: "Loading...",
+          description: "Your account's verification is in progress. Please wait...",
+        },
+        error: {
+          title: "Error",
+          description: "An error occurred while verifying your account! Please retry.",
+        },
+      },
+      toasts: {
+        success: {
+          title: "Congratulations 🎉",
+          description: "Your account has been successfully verified! You can now login to access to all features.",
         },
       },
     },

@@ -51,6 +51,9 @@ NUXT_MAILER_PASS="*********"
 NUXT_MAILER_FROM_ADDRESS="***@***.**"
 NUXT_MAILER_FROM_NAME="My Nuxt Application - Mail System"
 
+NUXT_MAILER_DEFAULT_TO="***@***.**"
+NUXT_MAILER_DEFAULT_SUBJECT="An automatic email"
+
 NUXT_PUBLIC_API_URL="http://localhost:3000"
 ```
 
