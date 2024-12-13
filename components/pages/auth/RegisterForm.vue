@@ -14,6 +14,7 @@ const showPassword = ref<boolean>(false);
 
 const schema = toTypedSchema(z.object({
   username: z.string().regex(/^[A-Za-z0-9_\-.]{8,24}$/),
+  email: z.string().email(),
   password: z.string().regex(/^[A-Za-z0-9_\-.]{12,32}$/),
 }));
 const { handleSubmit } = useForm({
@@ -45,6 +46,17 @@ const onSubmit = handleSubmit(async (values) => {
             <FormLabel>{{ t("auth.register.form.fields.username") }}</FormLabel>
             <FormControl v-bind="componentField">
               <Input placeholder="john.doe" />
+            </FormControl>
+          </FormItem>
+        </FormField>
+        <FormField
+          v-slot="{ componentField }"
+          name="email"
+        >
+          <FormItem>
+            <FormLabel>{{ t("auth.register.form.fields.email") }}</FormLabel>
+            <FormControl v-bind="componentField">
+              <Input placeholder="john.doe@example.xyz" />
             </FormControl>
           </FormItem>
         </FormField>

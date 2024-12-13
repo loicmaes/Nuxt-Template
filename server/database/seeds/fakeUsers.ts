@@ -6,11 +6,13 @@ const fakeUsers: (ICreateUser & { uid: string })[] = [
   {
     uid: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
     username: "hello.world1",
+    email: "hello.world1@gmail.com",
     password: "hello__world1",
   },
   {
     uid: "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
     username: "hello.world2",
+    email: "hello.world2@gmail.com",
     password: "hello__world2",
   },
 ];
@@ -27,12 +29,12 @@ async function seed(prisma: PrismaClient) {
         uid: usr.uid,
       },
       create: {
-        uid: usr.uid,
-        username: usr.username,
+        ...usr,
         password: await hash(usr.password),
       },
       update: {
         username: usr.username,
+        email: usr.email,
         password: await hash(usr.password),
       },
     }) as IUser;

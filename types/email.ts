@@ -1,5 +1,5 @@
-export const useDefaultTo = (): string => useRuntimeConfig().mailerDefaultTo;
-export const useDefaultSubject = (): string => useRuntimeConfig().mailerDefaultSubject;
+export const useDefaultTo = (): string => useRuntimeConfig().mailerDefaultTo as string;
+export const useDefaultSubject = (): string => useRuntimeConfig().mailerDefaultSubject as string;
 export const useDefaultAttachments = (): IEmailAttachment[] => [];
 
 export interface IEmail {
