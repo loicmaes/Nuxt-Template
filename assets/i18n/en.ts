@@ -44,6 +44,10 @@ export default {
           title: "Oops... 💢",
           description: "You provided wrong credentials... Try again!",
         },
+        notVerified: {
+          title: "Oops... 💢",
+          description: "Your account is not verified, check your inbox to verify it and then, try again.",
+        },
         userLoggedIn: {
           title: "Hey {username} 👋",
           description: "Glad to see you back here!",

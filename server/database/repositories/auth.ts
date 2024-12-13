@@ -34,8 +34,8 @@ export async function isValid(token: string, userUid: string): Promise<boolean> 
   try {
     return !!await get(token, userUid);
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   catch (e) {
-    console.error(e);
     return false;
   }
 }

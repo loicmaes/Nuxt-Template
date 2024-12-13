@@ -1,6 +1,6 @@
 import argon from "argon2";
 import type { PrismaClientKnownRequestError } from "@prisma/client/runtime/binary";
-import type { IBackUser, ICreateUser, IUser } from "~/types/user";
+import type { IBackUser, ICreateUser, IUpdateUser, IUser } from "~/types/user";
 import prisma from "~/server/database";
 import { UniqueConstraintError, NotFoundError } from "~/types/error";
 
@@ -53,5 +53,21 @@ export async function getBackByUsername(username: string): Promise<IBackUser> {
   });
   if (!user)
     throw new NotFoundError("user");
-  return user;
+  return user as IBackUser;
+}
+
+export async function update(uid: string, payload: IUpdateUser): Promise<IUser> {
+  const user = await prisma.user.update({
+    where: {
+      uid,
+    },
+    data: payload,
+  });
+  if (!user)
+    throw new NotFoundError("user");
+  return user as IUser;
+}
+
+export async function isVerified(uid: string): Promise<boolean> {
+  return !!(await get(uid)).verifiedAt;
 }

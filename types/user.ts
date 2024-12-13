@@ -4,11 +4,22 @@ export interface ICreateUser {
   password: string;
 }
 
+export type IUpdateUser = Partial<Omit<Omit<Omit<IBackUser, "createdAt">, "updatedAt">, "uid">>;
+
 export interface IUser {
   uid: string;
   username: string;
   email: string;
   createdAt: Date;
   updatedAt: Date;
+  verifiedAt?: Date;
 }
 export type IBackUser = IUser & { password: string };
+
+export interface IAccountVerification {
+  uid: string;
+  userUid: string;
+  createdAt: Date;
+  expiresAt: Date;
+  usedAt?: Date;
+}

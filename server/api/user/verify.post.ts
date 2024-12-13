@@ -1,10 +1,4 @@
-import { error } from "~/server/services/http";
+import { verifyAccount } from "~/server/services/user";
 
-const wait = async (delay: number) => new Promise(resolve => setTimeout(resolve, delay));
-
-export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
-  console.log(body);
-  await wait(1500);
-  return error(event);
-});
+export default defineEventHandler(async event =>
+  await verifyAccount(event, await readBody<{ sessionUid: string; userUid: string }>(event)));
