@@ -1,8 +1,8 @@
 import argon from "argon2";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/binary";
+import type { PrismaClientKnownRequestError } from "@prisma/client/runtime/binary";
 import type { IBackUser, ICreateUser, IUser } from "~/types/user";
 import prisma from "~/server/database";
-import { UniqueConstraintError } from "~/types/error";
+import { UniqueConstraintError, NotFoundError } from "~/types/error";
 
 export async function create(payload: ICreateUser): Promise<IUser> {
   try {
@@ -18,10 +18,7 @@ export async function create(payload: ICreateUser): Promise<IUser> {
     return user as IUser;
   }
   catch (e) {
-    if (!(e instanceof PrismaClientKnownRequestError))
-      throw e;
-
-    switch (e.code) {
+    switch ((e as PrismaClientKnownRequestError).code) {
       case "P2002":
         throw new UniqueConstraintError();
       default:
@@ -31,24 +28,30 @@ export async function create(payload: ICreateUser): Promise<IUser> {
 }
 
 export async function get(uid: string): Promise<IUser> {
-  const user = {
-    ...await prisma.user.findUnique({
-      where: {
-        uid,
-      },
-    }),
-  } as Partial<IBackUser>;
+  const dbUser = await prisma.user.findUnique({
+    where: {
+      uid,
+    },
+  });
+  if (!dbUser)
+    throw new NotFoundError("user");
+
+  const user = { ...dbUser } as Partial<IBackUser>;
   delete user.password;
   return user as IUser;
 }
 export async function getByUsername(username: string): Promise<IUser> {
-  const user = {
-    ...await prisma.user.findUnique({
-      where: {
-        username,
-      },
-    }),
-  } as Partial<IBackUser>;
+  const user = { ...await getBackByUsername(username) } as Partial<IBackUser>;
   delete user.password;
   return user as IUser;
+}
+export async function getBackByUsername(username: string): Promise<IBackUser> {
+  const user = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+  });
+  if (!user)
+    throw new NotFoundError("user");
+  return user;
 }

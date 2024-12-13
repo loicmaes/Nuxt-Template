@@ -3,7 +3,6 @@ import { User, SystemRestart } from "@iconoir/vue";
 import * as z from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
-import { wait } from "~/lib/utils";
 
 const { t } = useI18n();
 useHead({
@@ -23,13 +22,11 @@ const { handleSubmit } = useForm({
 const onSubmit = handleSubmit(async (values) => {
   loading.value = true;
 
-  // TODO: logic
-  console.log(values);
-  await wait(1500);
-  console.log("Data sent!", values);
+  const canMove = await loginUser(t, values);
 
   loading.value = false;
-  await navigateTo(useLocalePath()("/"));
+  if (canMove)
+    await navigateTo(useLocalePath()("/"));
 });
 </script>
 

@@ -11,6 +11,9 @@ const iconProps = {
 <template>
   <div>
     <NuxtRouteAnnouncer />
+
+    <Toaster />
+
     <IconoirProvider :icon-props="iconProps">
       <NuxtLayout>
         <NuxtPage />

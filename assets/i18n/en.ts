@@ -9,6 +9,14 @@ export default {
     },
   },
   platformLabel: "Nuxt Template:",
+  globals: {
+    toasts: {
+      serverError: {
+        title: "Oops... 💢",
+        description: "An internal error occurred... Maybe try again?",
+      },
+    },
+  },
   auth: {
     login: {
       title: "Login",
@@ -21,6 +29,16 @@ export default {
         action: {
           idle: "Take me in",
           loading: "Logging in...",
+        },
+      },
+      toasts: {
+        wrongCredentials: {
+          title: "Oops... 💢",
+          description: "You provided wrong credentials... Try again!",
+        },
+        userLoggedIn: {
+          title: "Hey {username} 👋",
+          description: "Glad to see you back here!",
         },
       },
     },
@@ -36,6 +54,16 @@ export default {
         action: {
           idle: "Start the adventure",
           loading: "Registering...",
+        },
+      },
+      toasts: {
+        usernameAlreadyUsed: {
+          title: "Oops... 💢",
+          description: "Username \"{username}\" is already registered! Use another one.",
+        },
+        userRegistered: {
+          title: "Congratulations 🎉",
+          description: "You're now a member of our big family! Glad to see you here {username}.",
         },
       },
     },

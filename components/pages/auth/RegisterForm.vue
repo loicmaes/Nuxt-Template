@@ -22,10 +22,11 @@ const { handleSubmit } = useForm({
 const onSubmit = handleSubmit(async (values) => {
   loading.value = true;
 
-  await registerUser(values);
+  const canMove = await registerUser(t, values);
 
   loading.value = false;
-  await navigateTo(useLocalePath()("/"));
+  if (canMove)
+    await navigateTo(useLocalePath()("/"));
 });
 </script>
 
