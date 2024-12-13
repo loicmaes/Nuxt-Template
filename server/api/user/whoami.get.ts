@@ -1,4 +1,4 @@
-import { whoAmI } from "~/server/services/user";
+import { protectedRoute } from "~/server/services/routing";
 
 export default defineEventHandler(async event =>
-  await whoAmI(event));
+  await protectedRoute(event, async user => user));
