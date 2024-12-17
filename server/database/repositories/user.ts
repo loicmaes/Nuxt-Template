@@ -55,6 +55,21 @@ export async function getBackByUsername(username: string): Promise<IBackUser> {
     throw new NotFoundError("user");
   return user as IBackUser;
 }
+export async function getByEmail(email: string): Promise<IUser> {
+  const user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+  if (!user)
+    throw new NotFoundError("user");
+
+  const jsonUser = {
+    ...user,
+  } as Partial<IBackUser>;
+  delete jsonUser.password;
+  return jsonUser as IUser;
+}
 
 export async function update(uid: string, payload: IUpdateUser): Promise<IUser> {
   const user = await prisma.user.update({

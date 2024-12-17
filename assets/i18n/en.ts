@@ -32,6 +32,7 @@ export default {
         fields: {
           username: "Username",
           password: "Password",
+          forgotPassword: "Forgot password?",
           showPassword: "Show password",
         },
         action: {
@@ -96,6 +97,51 @@ export default {
         success: {
           title: "Congratulations 🎉",
           description: "Your account has been successfully verified! You can now login to access to all features.",
+        },
+      },
+    },
+    resetPassword: {
+      request: {
+        title: "Reset password",
+        description: "Enter the email linked to your account, a reset link will be sent if an account is found!",
+        toasts: {
+          emailSent: {
+            title: "Whoosh 📨",
+            description: "Check your inbox; a rest password link has been sent to your email address.",
+          },
+        },
+        form: {
+          fields: {
+            email: "Your email address",
+          },
+          action: {
+            idle: "Submit request",
+            loading: "Submitting...",
+          },
+        },
+      },
+      newPassword: {
+        title: "New password",
+        toasts: {
+          sessionNotFound: {
+            title: "Oops 💢",
+            description: "The current session you're running on doesn't exist or expired.",
+          },
+          passwordReset: {
+            title: "Alright 🎉",
+            description: "Your password has been updated! You can now login using this password.",
+          },
+        },
+        form: {
+          fields: {
+            password: "New password",
+            confirm: "Confirm password",
+            showPasswords: "Show passwords",
+          },
+          action: {
+            idle: "Reset my password",
+            loading: "Updating password...",
+          },
         },
       },
     },

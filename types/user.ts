@@ -16,10 +16,12 @@ export interface IUser {
 }
 export type IBackUser = IUser & { password: string };
 
-export interface IAccountVerification {
+export interface IUserActionRequest {
   uid: string;
   userUid: string;
   createdAt: Date;
   expiresAt: Date;
   usedAt?: Date;
 }
+export type IAccountVerification = IUserActionRequest;
+export type IPasswordRequest = IUserActionRequest;

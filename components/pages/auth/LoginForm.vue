@@ -52,7 +52,7 @@ const onSubmit = handleSubmit(async (values) => {
           v-slot="{ componentField }"
           name="password"
         >
-          <FormItem>
+          <FormItem class="flex flex-col">
             <FormLabel>{{ t("auth.login.form.fields.password") }}</FormLabel>
             <FormControl v-bind="componentField">
               <Input
@@ -60,6 +60,16 @@ const onSubmit = handleSubmit(async (values) => {
                 placeholder="··········"
               />
             </FormControl>
+            <Button
+              size="sm"
+              variant="link"
+              class="h-6 px-1 self-end"
+              as-child
+            >
+              <NuxtLinkLocale to="/reset-password/request">
+                {{ t("auth.login.form.fields.forgotPassword") }}
+              </NuxtLinkLocale>
+            </Button>
           </FormItem>
         </FormField>
 

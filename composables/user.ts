@@ -106,3 +106,48 @@ export async function logout(t: InternationalizationTool) {
     }
   }
 }
+
+export async function sendPasswordRequest(t: InternationalizationTool, email: string) {
+  try {
+    await $fetch("/api/user/password/requestReset", {
+      method: "POST",
+      body: {
+        email,
+      },
+    });
+    return toasterSuccess(useToastBody(t, "auth.resetPassword.request.toasts.emailSent"));
+  }
+  catch (e) {
+    if (!(e instanceof FetchError))
+      return toasterServerError(t);
+    return toasterServerError(t);
+  }
+}
+export async function sendNewPassword(t: InternationalizationTool, password: string) {
+  const { params } = useRoute();
+  const userUid = params.user as string;
+  const sessionUid = params.session as string;
+
+  try {
+    await $fetch("/api/user/password/reset", {
+      method: "POST",
+      body: {
+        userUid,
+        sessionUid,
+        password,
+      },
+    });
+    return toasterSuccess(useToastBody(t, "auth.resetPassword.newPassword.toasts.passwordReset"));
+  }
+  catch (e) {
+    if (!(e instanceof FetchError))
+      return toasterServerError(t);
+
+    switch (e.statusCode) {
+      case HttpCode.NotFound:
+        return toasterError(useToastBody(t, "auth.resetPassword.newPassword.toasts.sessionNotFound"), true);
+      default:
+        return toasterServerError(t);
+    }
+  }
+}
