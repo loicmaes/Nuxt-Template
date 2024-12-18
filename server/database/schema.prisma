@@ -20,6 +20,7 @@ model User {
 
   authSessions         AuthSession[]
   accountVerifications AccountVerification[]
+  passwordResets       PasswordReset[]
 
   @@map("users")
 }
@@ -48,4 +49,17 @@ model AccountVerification {
 
   @@id([uid, userUid])
   @@map("account_verifications")
+}
+
+model PasswordReset {
+  uid       String    @default(uuid())
+  userUid   String
+  createdAt DateTime  @default(now())
+  expiresAt DateTime
+  usedAt    DateTime?
+
+  user User @relation(fields: [userUid], references: [uid], onDelete: Cascade)
+
+  @@id([uid, userUid])
+  @@map("password_resets")
 }

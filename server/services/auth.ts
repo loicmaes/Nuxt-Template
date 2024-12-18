@@ -9,10 +9,10 @@ const tokenCookieKey = "auth-token";
 const userUidCookieKey = "user-uid";
 
 export function setTokenCookie(event: HttpRequest, token: string | null) {
-  return setCookie(event, tokenCookieKey, token, cookiesOptions);
+  return setCookie(event, tokenCookieKey, token ?? "", cookiesOptions);
 }
 export function setUserUidCookie(event: HttpRequest, userUid: string | null) {
-  return setCookie(event, userUidCookieKey, userUid, cookiesOptions);
+  return setCookie(event, userUidCookieKey, userUid ?? "", cookiesOptions);
 }
 export function setCookies(event: HttpRequest, payload: {
   token: string | null;
