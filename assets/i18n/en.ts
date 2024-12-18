@@ -24,6 +24,16 @@ export default {
         description: "Your session had reach his expiration date! Login to access again.",
       },
     },
+    locales: {
+      en: "English",
+      fr: "French",
+      de: "German",
+    },
+    themes: {
+      light: "Light",
+      dark: "Dark",
+      system: "System",
+    },
   },
   auth: {
     login: {
